@@ -16,13 +16,14 @@ Se definió como contrato con **desviación** aquel que presentó al menos una d
 
 ## 2. Hallazgos Estadísticos Clave
 
-| Prueba | Variable | Resultado | Conclusión |
-|--------|----------|-----------|------------|
-| Chi² (χ²=1,778 \| gl=8) | Modalidad de contratación | p ≈ 0.00 | **Asociación significativa** con desviación |
-| Chi² (χ²=2,530 \| gl=24) | Sector | p ≈ 0.00 | **Asociación significativa** con desviación |
-| Mann-Whitney U | Valor del contrato | p ≈ 0.00 | **Diferencia significativa** entre grupos |
+| Prueba | Variable | p-valor | V de Cramér / Δ mediana | Conclusión operativa |
+|--------|----------|---------|-------------------------|----------------------|
+| Chi² (χ²=1,778 \| gl=8) | Modalidad de contratación | ≈ 0.00 | V ≈ 0.11 (IC 95%) | **Significativa + magnitud pequeña útil** |
+| Chi² (χ²=2,530 \| gl=24) | Sector | ≈ 0.00 | V ≈ 0.14 (IC 95%) | **Significativa + magnitud pequeña útil** |
+| Mann-Whitney U | Valor del contrato | ≈ 0.00 | Δ mediana ≈ +$13.3M COP (IC 95%) | **Significativa + magnitud accionable** |
+| Chi² (2×2) | Tipo de contrato (H3) | ≈ 0.00 | V < 0.05 (IC 95%) | **Significativa pero trivial en magnitud** |
 
-> Normalidad verificada formalmente: Shapiro-Wilk W=0.076, p=5.6×10⁻⁹⁴, skewness=177.2 → se usó Mann-Whitney U (no paramétrico) en lugar del t-test.
+> **Nota metodológica clave:** con n = 135,300 el p-valor por sí solo es un mal indicador de relevancia — casi cualquier diferencia real produce p ≈ 0. Por eso cada prueba se acompaña de una **medida de magnitud con IC bootstrap al 95%** (V de Cramér para asociaciones categóricas, diferencia de medianas en COP para H2). El caso de tipo de contrato (H3) es ilustrativo: la asociación es estadísticamente significativa pero prácticamente trivial (brecha de solo ~2 puntos porcentuales entre Suministros y Compraventa), por lo que **no se usa como criterio autónomo de focalización**. Normalidad de H2 verificada con Shapiro-Wilk (rechazada) + skewness = 177.2, lo que justificó Mann-Whitney U sobre t-test.
 
 ---
 
@@ -119,6 +120,7 @@ Mann-Whitney U confirmó diferencia significativa entre grupos (p≈0):
 5. **14.6% de contratos sin sector clasificado:** Los 19,817 contratos "SIN CLASIFICAR" limitan la trazabilidad y pueden ocultar entidades de alto riesgo que no reportan su sector correctamente en SECOP II.
 6. **Asociación ≠ Causalidad:** Chi² y Mann-Whitney U demuestran asociación, no causalidad. Un sector con alta tasa puede reflejar mayor complejidad técnica, no necesariamente irregularidades.
 7. **Sin seguimiento longitudinal:** Contratos multi-año solo aparecen en el año de firma. El análisis no rastrea la evolución de un mismo contrato en el tiempo.
+8. **Significancia estadística ≠ relevancia práctica:** con n = 135,300 casi cualquier diferencia detectable produce p ≈ 0. El descarte de `tipo_de_contrato` como criterio autónomo de focalización (H3: p ≈ 0 pero V de Cramér < 0.05) demuestra que las recomendaciones aquí presentadas priorizaron **magnitud del efecto (V de Cramér e IC bootstrap)** sobre el simple rechazo de H0. Variables con asociación estadística pero magnitud trivial no aportan poder de segmentación operativa.
 
 ---
 

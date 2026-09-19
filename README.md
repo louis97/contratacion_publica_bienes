@@ -1,6 +1,6 @@
 # Supervisión Inteligente de Contratos Públicos de Bienes — SECOP II
 
-> **Taller de Ciencia de Datos Aplicada** | Universidad de los Andes  
+> **Taller de Ciencia de Datos Aplicada**  
 > Identificación de contratos que requieren supervisión prioritaria mediante análisis estadístico sobre datos abiertos de contratación pública colombiana.
 
 ---
@@ -9,7 +9,7 @@
 
 | Nombre | Usuario GitHub |
 |--------|---------------|
-| Luis Gualtero | [@louis97](https://github.com/louis97) |
+| Louis Gualtero | [@louis97](https://github.com/louis97) |
 
 ---
 
@@ -37,9 +37,9 @@ contratacion_publica_bienes/
 ├── analisis.ipynb          # Notebook principal: EDA, limpieza, estrategia de análisis
 │                           # y generación de resultados. Ejecutar secuencialmente.
 │
-├── reporte_eda.md          # Entendimiento inicial de datos y calidad (25% — Punto 1)
-├── estrategia.md           # Descripción de la estrategia de análisis (25% — Punto 2)
-├── informe_ejecutivo.md    # Informe ejecutivo con criterios de focalización (25% — Punto 3)
+├── reporte_eda.md          # Entendimiento inicial de datos y calidad
+├── estrategia.md           # Descripción de la estrategia de análisis
+├── informe_ejecutivo.md    # Informe ejecutivo con criterios de focalización
 │
 ├── image.png               # Gráfica de análisis univariado (referenciada en reporte_eda.md)
 ├── secop_bienes.parquet    # Dataset fuente (SECOP II — bienes)
@@ -62,7 +62,7 @@ cd contratacion_publica_bienes
 ### 2. Crear entorno virtual e instalar dependencias
 
 ```bash
-# Con conda (recomendado)
+# Con conda
 conda create -n contratos python=3.12
 conda activate contratos
 pip install pandas pyarrow numpy matplotlib seaborn scipy jupyter
@@ -108,6 +108,8 @@ Ejecutar todas las celdas **secuencialmente de arriba a abajo** (`Kernel > Resta
 
 5. **El score compuesto operacionaliza la supervisión.** Supervisar los 10,401 contratos con score ≥ 2 (7.7% del universo) captura los casos de mayor severidad sin sobrecargar los recursos de la oficina de control interno.
 
+6. **Significancia estadística ≠ relevancia práctica.** La hipótesis H3 (`tipo_de_contrato`) rechaza H0 (p ≈ 0) pero su V de Cramér es < 0.05: es estadísticamente significativa pero prácticamente trivial. Se descarta como criterio autónomo de focalización. Este resultado — deliberadamente incluido — sustenta que las recomendaciones operativas se basan en **magnitud del efecto + IC bootstrap**, no solo en p-valores.
+
 ---
 
 ## Estructura del Notebook
@@ -120,9 +122,11 @@ El notebook `analisis.ipynb` está organizado en las siguientes secciones ejecut
 | Análisis exploratorio | Dimensiones, tipos, nulos, valores únicos |
 | Volumen por año | Justificación del corte temporal post-pandemia |
 | **Pipeline de limpieza** | Completitud, consistencia, conformidad, lógica temporal |
+| **Selección de 5 atributos + panel de screening bivariado** | Justificación teórica + panel estadístico con `dif_medianas_%`, `rango_tasa_pp` e IC de Wilson (sin ML) |
 | Análisis univariado | Top 5 atributos + variable objetivo |
 | **Fase 1 — Tasas bivariadas** | Tasa de desviación por segmento + insights |
-| **Fase 2 — Pruebas de hipótesis** | Shapiro-Wilk, Chi², Mann-Whitney U + insights |
+| **Análisis de sesgo distribucional** | Skewness, kurtosis, histogramas escala normal vs log para variables numéricas clave |
+| **Fase 2 — Pruebas de hipótesis** | Shapiro-Wilk + 4 hipótesis formales (H1a, H1b, H2, H3) con V de Cramér e IC bootstrap 95% |
 | **Fase 3 — Visualizaciones multivariadas** | Heatmap, Boxplot, Barplot + insights |
 | **Fase 4 — Score de riesgo** | Score compuesto 0–3, Top 20 contratos + insights |
 
